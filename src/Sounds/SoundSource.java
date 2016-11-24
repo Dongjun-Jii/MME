@@ -1,0 +1,40 @@
+package Sounds;
+
+import static org.lwjgl.openal.AL10.*;
+
+public class SoundSource {
+	private int m_Source;
+	private int m_Buffer;
+	
+	public SoundSource() {
+		m_Source = alGenSources();
+		alSourcef(m_Source, AL_GAIN, 1);
+		alSourcef(m_Source, AL_PITCH, 1);
+		alSource3f(m_Source, AL_POSITION, 0, 0, 0);
+	}
+	
+	public SoundSource(int buffer) {
+		m_Source = alGenSources();
+		alSourcef(m_Source, AL_GAIN, 1);
+		alSourcef(m_Source, AL_PITCH, 1);
+		alSource3f(m_Source, AL_POSITION, 0, 0, 0);
+		m_Buffer = buffer;
+	}
+	
+	public void setBuffer(int buffer) {
+		m_Buffer = buffer;
+	}
+	
+	void play() {
+		alSourcei(m_Source, AL_BUFFER, m_Buffer);
+		alSourcePlay(m_Source);
+	}
+	
+	void pause() {
+		alSourcePause(m_Source);
+	}
+	
+	void stop() {
+		alSourceStop(m_Source);
+	}
+}
