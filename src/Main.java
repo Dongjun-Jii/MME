@@ -112,7 +112,7 @@ public class Main{
 		
 		sound.loadSound("lm", "./res/Let's madness.ogg");
 		
-		//sound.play("lm");
+		sound.play("lm");
 		
 		preTime = glfwGetTime();
 		acTime = 0.0;
