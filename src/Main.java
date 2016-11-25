@@ -110,9 +110,6 @@ public class Main{
 		sound.init();
 		GameInfo.gameInit();
 		
-		sound.loadSound("lm", "./res/Let's madness.ogg");
-		sound.play("lm");
-		
 		preTime = glfwGetTime();
 		acTime = 0.0;
 		FPS = 0;
