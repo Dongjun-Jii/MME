@@ -1,4 +1,4 @@
-package Game;
+package Game.Object;
 
 public interface GameObject {
 	public void draw();
@@ -12,6 +12,4 @@ public interface GameObject {
 	public void mousePressEvent(int button);
 	
 	public void mouseReleaseEvent(int button);
-	
-	public boolean isCollision(float x, float y);
 }
