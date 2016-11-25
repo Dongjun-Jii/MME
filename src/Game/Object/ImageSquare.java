@@ -19,7 +19,7 @@ public class ImageSquare implements GameObject{
 	private VertexArray m_Vao;
 	
 	public ImageSquare() {
-		m_Texture = new Texture("./res/Char.png");
+		m_Texture = new Texture("./res/");
 		m_Vao = new VertexArray(m_Texture.getWidth(), m_Texture.getHeight(), 0.0f, 1.0f, 0.0f, 1.0f);
 	}
 	

@@ -15,6 +15,7 @@ public class Graphics {
 	
 	private int m_Program;
 	private Matrix4f m_OrthoMat = Matrix4f.orthographic(0, 1920, 1080, 0, -1, 1);
+
 	public void init() {
 		GL.createCapabilities();
 		m_Program = glCreateProgram();
