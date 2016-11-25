@@ -1,5 +1,6 @@
 package Game;
 
+import Game.Level.Level;
 import Graphics.Graphics;
 import Input.KeyBoardInput;
 import Input.MouseButtonInput;
