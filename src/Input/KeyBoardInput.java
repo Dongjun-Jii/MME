@@ -16,15 +16,18 @@ public class KeyBoardInput extends GLFWKeyCallback{
 
 	@Override
 	public void invoke(long window, int key, int scancode, int action, int mods) {
+		/* Esc -> Game End */
 		if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
 			glfwSetWindowShouldClose(window, true);
 		}
 		
+		/* Call Event */
 		if(action == GLFW_PRESS) 
 			GameState.curLevel.keyPressEvent(key);
 		else if(action == GLFW_RELEASE) 
 			GameState.curLevel.keyReleaseEvent(key);
 		
+		/* Set Keys */
 		keys[key] = (action != GLFW_RELEASE) ? true : false;
 	}
 	

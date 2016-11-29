@@ -20,7 +20,10 @@ public class MouseButtonInput extends GLFWMouseButtonCallback{
 	
 	@Override
 	public void invoke(long window, int button, int action, int mods) {
+		/* Set Buttons */
 		buttons[button] = (action != GLFW_RELEASE) ? true : false;
+
+		/* Call Event */
 		if(action == GLFW_PRESS)
 			GameState.curLevel.mousePressEvent(button);
 		else if(action == GLFW_RELEASE)

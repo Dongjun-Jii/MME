@@ -13,28 +13,6 @@ public class Matrix4f {
     public Matrix4f() {
         setIdentity();
     }
-    
-    public Matrix4f(Vector4f col1, Vector4f col2, Vector4f col3, Vector4f col4) {
-        m00 = col1.x;
-        m10 = col1.y;
-        m20 = col1.z;
-        m30 = col1.w;
-
-        m01 = col2.x;
-        m11 = col2.y;
-        m21 = col2.z;
-        m31 = col2.w;
-
-        m02 = col3.x;
-        m12 = col3.y;
-        m22 = col3.z;
-        m32 = col3.w;
-
-        m03 = col4.x;
-        m13 = col4.y;
-        m23 = col4.z;
-        m33 = col4.w;
-    }
 
     public final void setIdentity() {
         m00 = 1f;
@@ -114,14 +92,6 @@ public class Matrix4f {
         result.m33 = this.m33 * scalar;
 
         return result;
-    }
-
-    public Vector4f multiply(Vector4f vector) {
-        float x = this.m00 * vector.x + this.m01 * vector.y + this.m02 * vector.z + this.m03 * vector.w;
-        float y = this.m10 * vector.x + this.m11 * vector.y + this.m12 * vector.z + this.m13 * vector.w;
-        float z = this.m20 * vector.x + this.m21 * vector.y + this.m22 * vector.z + this.m23 * vector.w;
-        float w = this.m30 * vector.x + this.m31 * vector.y + this.m32 * vector.z + this.m33 * vector.w;
-        return new Vector4f(x, y, z, w);
     }
 
     public Matrix4f multiply(Matrix4f other) {
@@ -254,14 +224,12 @@ public class Matrix4f {
 
         float c = (float) Math.cos(Math.toRadians(angle));
         float s = (float) Math.sin(Math.toRadians(angle));
-        Vector3f vec = new Vector3f(x, y, z);
-        if (vec.length() != 1f) {
-            vec = vec.normalize();
-            x = vec.x;
-            y = vec.y;
-            z = vec.z;
+        float length = (float) Math.sqrt(x * x + y * y + z * z);
+        
+        if(length != 1) {
+        	x /= length; y /= length; z /= length;
         }
-
+        
         rotation.m00 = x * x * (1f - c) + c;
         rotation.m10 = y * x * (1f - c) + z * s;
         rotation.m20 = x * z * (1f - c) - y * s;
