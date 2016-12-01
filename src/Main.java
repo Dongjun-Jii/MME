@@ -57,7 +57,7 @@ public class Main{
 			graphics.render();
 			FPS++;
 		
-			/* Log FPS */	
+			/* Print FPS */	
 			if(acTime > 1.0) {
 				System.out.println("FPS : " + FPS);
 				FPS = 0;

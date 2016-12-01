@@ -34,6 +34,11 @@ public class Sound {
 	}
 	
 	public void shutdown() {
+		/* Delete All Sources */
+		for(String name : m_Sources.keySet()) {
+			unloadSound(name);
+		}
+
 		/* Shutdown Device, Context */
 		ALC10.alcDestroyContext(m_Context);
 		ALC10.alcCloseDevice(m_SoundDevice);
@@ -59,6 +64,15 @@ public class Sound {
 		
 		SoundSource source = new SoundSource(buffer);
 		m_Sources.put(name, source);
+	}
+	
+	public boolean unloadSound(String name) {
+		SoundSource source = m_Sources.get(name);
+		if(source != null) {
+			source.shutdown();
+			m_Sources.remove(name);
+			return true;
+		} else return false;
 	}
 	
 	public void play(String name) {
