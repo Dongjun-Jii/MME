@@ -10,11 +10,11 @@ import Maths.Matrix4f;
 import Utils.ShaderUtil;
 
 public class Graphics {
-	public static int VERTEX_ATTRIB = 0;
-	public static int TCOORD_ATTRIB = 0;
+	public static final int VERTEX_ATTRIB = 0;
+	public static final int TCOORD_ATTRIB = 1;
+	
 	private int m_Program;
 	private Matrix4f m_OrthoMat = Matrix4f.orthographic(0, 1920, 1080, 0, -1, 1);
-
 	public void init() {
 		GL.createCapabilities();
 		m_Program = glCreateProgram();

@@ -25,10 +25,6 @@ public class SoundSource {
 		m_Buffer = buffer;
 	}
 	
-	public void shutdown() {
-		alDeleteSources(m_Source);
-	}
-	
 	void play() {
 		alSourcei(m_Source, AL_BUFFER, m_Buffer);
 		alSourcePlay(m_Source);

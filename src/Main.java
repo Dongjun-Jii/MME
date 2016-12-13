@@ -17,7 +17,6 @@ public class Main{
 	
 	private long window;
 	private long monitor;
-	private GLFWVidMode vidMode = null;
 	
 	private GLFWErrorCallback errorCallback = GLFWErrorCallback.createPrint(System.err);
 	private KeyBoardInput keyInput;
@@ -44,20 +43,16 @@ public class Main{
 
 	public void run() {
 		while(running) {
-			/* Get Time for FPS */
 			nowTime = glfwGetTime();
 			deltaTime = nowTime - preTime;
 			acTime += deltaTime;
 			
-			/* Update Game */
 			GameState.curLevel.update(deltaTime);
 			glfwPollEvents();
-		
-			/* Draw */	
+			
 			graphics.render();
 			FPS++;
-		
-			/* Print FPS */	
+			
 			if(acTime > 1.0) {
 				System.out.println("FPS : " + FPS);
 				FPS = 0;
@@ -66,48 +61,43 @@ public class Main{
 			
 			glfwSwapBuffers(window);
 			
-			if(glfwWindowShouldClose(window)) 
+			if(glfwWindowShouldClose(window)) {
 				running = false;
+			}
 			
 			preTime = nowTime;
 		}
 	}
 	
 	private void init() {
-			
+		
 		glfwSetErrorCallback(errorCallback);
 		
-		boolean result = glfwInit();	
-		if(!result) {
+		if(!glfwInit()) {
 			throw new IllegalStateException("Unable to initialize GLFW");
 		}
-	
-		/* Get Monitor, Resolution */
+		
 		monitor = glfwGetPrimaryMonitor();
-		vidMode = glfwGetVideoMode(monitor);
+		GLFWVidMode vidMode = glfwGetVideoMode(monitor);
 		width = vidMode.width();
 		height = vidMode.height();
-	
-		/* Create Window */	
+		
 		window = glfwCreateWindow(width, height, "Game", monitor, NULL);
 		if(window == NULL) {
 			glfwTerminate();
 			throw new RuntimeException("Fail to create GLFW window");
 		}
 		
-		/* Create Input, Sound, Graphic */
 		keyInput = new KeyBoardInput();
 		mouseInput = new MouseButtonInput(window);
 		graphics = new Graphics();
 		sound = new Sound();
 		
-		/* Set Input */
 		glfwSetKeyCallback(window, keyInput);
 		glfwSetMouseButtonCallback(window, mouseInput);
 		
 		glfwMakeContextCurrent(window);
 		
-		/* Set Input, Sound, Graphic */
 		GameState.graphics = graphics;
 		GameState.keyInput = keyInput;
 		GameState.mouseInput = mouseInput;
@@ -116,7 +106,6 @@ public class Main{
 		
 		glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 		
-		/* Initalize Grapic, Sound, Game */
 		graphics.init();
 		sound.init();
 		GameInfo.gameInit();

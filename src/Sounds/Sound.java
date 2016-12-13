@@ -20,40 +20,27 @@ public class Sound {
 	}
 	
 	public void init() {
-		/* Initialize Device, Context */
 		IntBuffer ib = null;
 		ByteBuffer bb = null;
 		m_SoundDevice = ALC10.alcOpenDevice(bb);
 		m_Context = ALC10.alcCreateContext(m_SoundDevice, ib);
 		ALC10.alcMakeContextCurrent(m_Context);
 		AL.createCapabilities(ALC.createCapabilities(m_SoundDevice));
-		
-		/* Initialize OpenAL */
 		alListener3f(AL_POSITION, 0, 0, 0);
 		alListener3f(AL_VELOCITY, 0, 0, 0);
 	}
 	
 	public void shutdown() {
-		/* Delete All Sources */
-		for(String name : m_Sources.keySet()) {
-			unloadSound(name);
-		}
-
-		/* Shutdown Device, Context */
 		ALC10.alcDestroyContext(m_Context);
 		ALC10.alcCloseDevice(m_SoundDevice);
 	}
 	
 	public void loadSound(String name, String path){
-		/* Create Buffer */
 		int buffer = alGenBuffers();
-		
-		/* Load Soundfile */
 		IntBuffer channels = BufferUtils.createIntBuffer(1);
 		IntBuffer sample_rate = BufferUtils.createIntBuffer(1);
 		ByteBuffer data = loadSoundFile(path, channels, sample_rate);
 		
-		/* Put Data to Buffer */
 		if(channels.get(0) == 1) {
 			alBufferData(buffer, AL_FORMAT_MONO16, data, sample_rate.get(0));
 		}else if(channels.get(0) == 2) {
@@ -64,15 +51,6 @@ public class Sound {
 		
 		SoundSource source = new SoundSource(buffer);
 		m_Sources.put(name, source);
-	}
-	
-	public boolean unloadSound(String name) {
-		SoundSource source = m_Sources.get(name);
-		if(source != null) {
-			source.shutdown();
-			m_Sources.remove(name);
-			return true;
-		} else return false;
 	}
 	
 	public void play(String name) {
