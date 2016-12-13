@@ -1,4 +1,4 @@
-package Game;
+package Game.Level;
 
 public interface Level {
 	public void draw();

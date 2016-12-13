@@ -1,22 +1,13 @@
-package Game;
+package Game.Object;
 
-import Graphics.*;
-import Maths.Matrix4f;
+import Game.GameObject;
 
-public class Title implements Level{
-	private VertexArray m_Background;
-	private Texture m_BackgroundT;
-	private Matrix4f m_bgMatrix;
-	
-	public Title() {
-		m_BackgroundT = new Texture(GameInfo.TITLE_BG_PATH);
-		m_Background = new VertexArray(m_BackgroundT.getWidth(), 1080.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-		m_bgMatrix = Matrix4f.translate(960, 520, 0);
-	}
+public class Button implements GameObject{
+
 	@Override
 	public void draw() {
-		m_BackgroundT.bind();
-		m_Background.draw(m_bgMatrix);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -47,6 +38,12 @@ public class Title implements Level{
 	public void mouseReleaseEvent(int button) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isCollision(float x, float y) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

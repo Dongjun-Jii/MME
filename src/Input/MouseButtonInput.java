@@ -1,5 +1,6 @@
 package Input;
 
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 
 import Game.GameState;
@@ -24,6 +25,7 @@ public class MouseButtonInput extends GLFWMouseButtonCallback{
 		if(action == GLFW_PRESS)
 			GameState.curLevel.mousePressEvent(button);
 		else if(action == GLFW_RELEASE)
+			
 			GameState.curLevel.mouseReleaseEvent(button);
 		
 		

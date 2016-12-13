@@ -39,18 +39,7 @@ public class Square implements GameObject{
 
 	@Override
 	public void update(double deltaTime) {
-		if(GameState.keyInput.isKeyPressed(GLFW_KEY_W)) {
-			m_PosY += -m_HSpeed * deltaTime;
-		}
-		if(GameState.keyInput.isKeyPressed(GLFW_KEY_S)) {
-			m_PosY += m_HSpeed * deltaTime;
-		}
-		if(GameState.keyInput.isKeyPressed(GLFW_KEY_A)) {
-			m_PosX += -m_VSpeed * deltaTime;
-		}
-		if(GameState.keyInput.isKeyPressed(GLFW_KEY_D)) {
-			m_PosX += m_VSpeed * deltaTime;
-		}
+		
 	}
 
 	@Override
@@ -75,9 +64,6 @@ public class Square implements GameObject{
 
 	@Override
 	public boolean isCollision(float x, float y) {
-		boolean result = false;
-		if((x - m_PosX) * (x - m_PosX) + (y - m_PosY) * (y - m_PosY) < 16 * 16)
-				result = true;
-		return result;
+		return false;
 	}
 }
