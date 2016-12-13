@@ -1,23 +1,31 @@
 package Game.Level;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import Game.GameInfo;
 import Game.Object.GameObject;
 import Graphics.Texture;
+import Graphics.TextureManager;
 import Graphics.VertexArray;
+import Maths.Matrix4f;
 
-public class tLevel implements Level{
+public class Title implements Level{
 	private List<GameObject> objectList;
 	private VertexArray m_Background;
 	private Texture m_BackgroundT;
+	private Matrix4f m_bgMatrix;
 	
-	public tLevel() {
+	public Title() {
 		objectList = new ArrayList<GameObject>();
+		m_BackgroundT = TextureManager.loadTexture(GameInfo.TITLE_BG_PATH);
 		m_Background = new VertexArray(m_BackgroundT.getWidth(), m_BackgroundT.getHeight(), 0.0f, 1.0f, 0.0f, 1.0f);
+		m_bgMatrix = Matrix4f.translate(-910, -540, 0.5f);
 	}
 	
+	@Override
 	public void draw() {
+		m_BackgroundT.bind();
+		m_Background.draw(m_bgMatrix);
 		if(!objectList.isEmpty()) {
 			for(GameObject obj : objectList) {
 				obj.draw();
@@ -25,6 +33,7 @@ public class tLevel implements Level{
 		}
 	}
 	
+	@Override
 	public void update(double deltaTime) {
 		if(!objectList.isEmpty()) {
 			for(GameObject obj : objectList) {

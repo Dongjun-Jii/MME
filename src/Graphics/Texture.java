@@ -16,7 +16,7 @@ public class Texture {
 		texture = load(path);
 	}
 	
-	public int load(String path) {
+	private int load(String path) {
 		/* Load Image File*/
 		ByteBuffer imageBuffer = null;
 		IntBuffer x = createIntBuffer(1);
