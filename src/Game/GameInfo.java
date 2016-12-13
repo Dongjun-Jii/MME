@@ -15,4 +15,5 @@ public final class GameInfo {
 	}
 	
 	public static final String TITLE_BG_PATH = "./res/bg/Title.png";
+	public static final String MENU_BG_PATH = "./res/bg/Menu.png";
 }

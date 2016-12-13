@@ -1,21 +1,24 @@
 package Game.Level;
 
+import java.util.*;
+
 import Game.GameInfo;
+import Game.GameState;
+import Game.Object.GameObject;
 import Graphics.Texture;
 import Graphics.TextureManager;
 import Graphics.VertexArray;
 import Maths.Matrix4f;
 
-public class Title implements Level{
+public class Menu implements Level{
 	private VertexArray m_Background;
 	private Texture m_BackgroundT;
 	private Matrix4f m_bgMatrix;
 	
-	public Title() {
-		//m_BackgroundT = TextureManager.loadTexture(GameInfo.TITLE_BG_PATH);
-		m_BackgroundT = new Texture(GameInfo.TITLE_BG_PATH);
-		m_Background = new VertexArray(m_BackgroundT.getWidth(), 1080.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-		m_bgMatrix = Matrix4f.translate(960, 520, 0);
+	public Menu() {
+		m_BackgroundT = TextureManager.loadTexture(GameInfo.MENU_BG_PATH);
+		m_Background = new VertexArray(m_BackgroundT.getWidth(), m_BackgroundT.getHeight(), 0.0f, 1.0f, 0.0f, 1.0f);
+		m_bgMatrix = Matrix4f.translate(-910, -540, 0.5f);
 	}
 	
 	@Override
@@ -26,17 +29,14 @@ public class Title implements Level{
 	
 	@Override
 	public void update(double deltaTime) {
-		
 	}
 	
 	@Override
 	public void keyPressEvent(int key) {
-		
 	}
 
 	@Override
 	public void keyReleaseEvent(int key) {
-		
 	}
 
 	@Override

@@ -22,6 +22,10 @@ public class VertexArray {
 			-width / 2, height / 2, 0.0f,
 			-width / 2, -height / 2, 0.0f
 		};
+		
+		for(int i = 0 ; i < m_Vertices.length; i++) {
+			System.out.println(m_Vertices[i]);
+		}
 			
 		/* Set Index */
 		m_Indices = new int[]{

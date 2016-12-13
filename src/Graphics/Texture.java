@@ -7,6 +7,8 @@ import static Utils.FileUtil.*;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import Game.GameInfo;
+
 
 public class Texture {
 	private int m_Width, m_Height;
