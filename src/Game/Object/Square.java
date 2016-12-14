@@ -19,9 +19,6 @@ public class Square implements GameObject{
 	private float m_SizeX = 1.0f;
 	private float m_SizeY = 1.0f;
 	
-	private float m_VSpeed = 150.0f;
-	private float m_HSpeed = 150.0f;
-	
 	private VertexArray m_Vao;
 	
 	public Square() {

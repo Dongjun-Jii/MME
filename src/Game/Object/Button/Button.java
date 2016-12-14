@@ -17,10 +17,11 @@ public class Button implements GameObject{
 		
 	}
 	
-	public void setPath(String Activepath, String Inactivepath) {
-		m_Texture[0] = new Texture(Activepath);
-		m_Texture[1] = new Texture(Inactivepath);
+	public void setPath(String Inactivepath, String Activepath) {
+		m_Texture[0] = new Texture(Inactivepath);
+		m_Texture[1] = new Texture(Activepath);
 	}
+	
 	public void setPos(float x, float y) {
 		m_PosX = x;
 		m_PosY = y;
