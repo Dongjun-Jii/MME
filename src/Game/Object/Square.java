@@ -1,6 +1,5 @@
 package Game.Object;
 
-import Game.GameObject;
 import Game.GameState;
 import Graphics.Texture;
 import Graphics.VertexArray;
@@ -60,10 +59,5 @@ public class Square implements GameObject{
 	public void mouseReleaseEvent(int button) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public boolean isCollision(float x, float y) {
-		return false;
 	}
 }

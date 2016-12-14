@@ -1,28 +1,46 @@
-package Game.Object;
+package Game.Object.Button;
 
-import Game.GameObject;
+import Game.Object.GameObject;
 import Graphics.Texture;
 import Graphics.VertexArray;
 import Maths.Matrix4f;
 
 public class Button implements GameObject{
-	private Texture m_Texture;
+	private Texture m_Texture[] = new Texture[2];
 	private VertexArray m_Vao;
 	private Matrix4f m_MVMatrix;
 	private float m_PosX;
 	private float m_PosY;
+	private boolean m_isActive = false;
 	
-	public void Button() {
-		m_Texture = new Texture("");
-		m_Vao = new VertexArray(m_Texture.getWidth(), m_Texture.getHeight(), 0, 1, 0, 1);
+	public Button() {
+		
+	}
+	
+	public void setPath(String Activepath, String Inactivepath) {
+		m_Texture[0] = new Texture(Activepath);
+		m_Texture[1] = new Texture(Inactivepath);
+	}
+	public void setPos(float x, float y) {
+		m_PosX = x;
+		m_PosY = y;
 		m_MVMatrix = Matrix4f.translate(m_PosX, m_PosY, 0);
 	}
+	
+	public void setActive(boolean a) {
+		m_isActive = a;
+	}
+	
+	public float getLeft(){return -m_Texture[0].getWidth()/2 + m_PosX;}
+	public float getRight(){return m_Texture[0].getWidth()/2 + m_PosX;}
+	public float getTop(){return -m_Texture[0].getHeight()/2 + m_PosY;}
+	public float getBotton(){return m_Texture[0].getHeight()/2 + m_PosY;}
 
 	@Override
 	public void draw() {
-		m_Texture.bind();
+		if(m_isActive) m_Texture[0].bind();
+		else m_Texture[1].bind();
 		m_Vao.draw(m_MVMatrix);
-		
 	}
 
 	@Override
@@ -53,12 +71,6 @@ public class Button implements GameObject{
 	public void mouseReleaseEvent(int button) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public boolean isCollision(float x, float y) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
