@@ -2,7 +2,6 @@ package Game;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-import Game.Level.Menu;
 import Game.Level.StageSelect;
 import Game.Level.Title;
 
@@ -29,12 +28,12 @@ public final class GameInfo {
 		glfwSetWindowShouldClose(GameState.window, true);
 	}
 	
-	public static void gotoMenu() {
-		GameState.curLevel = new Menu();
-	}
-	
 	public static void gotoStageSelect() {
 		GameState.curLevel = new StageSelect();
+	}
+	
+	public static void gotoTitle() {
+		GameState.curLevel = new Title();
 	}
 	
 }

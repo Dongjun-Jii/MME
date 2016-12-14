@@ -1,11 +1,8 @@
 package Game.Object;
 
-import Game.GameState;
 import Graphics.Texture;
 import Graphics.VertexArray;
 import Maths.Matrix4f;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class Square implements GameObject{
 	private Texture m_Texture;
