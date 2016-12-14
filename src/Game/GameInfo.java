@@ -12,7 +12,7 @@ public final class GameInfo {
 	public final static String BG_BLUE_PATH = "./res/bg/Blue.png";
 	
 	public final static String BUTTON_MENU_PATH[] = {"./res/button/Menu.png", "./res/button/Menu-sS.png", "./res/button/Menu-sP.png", "./res/button/Menu-sO.png"};
-	public final static String BUTTON_QUIT_PATH[] = {"./res/button/Quit.png", ".res/button/Quit-s.png"};
+	public final static String BUTTON_QUIT_PATH[] = {"./res/button/Quit.png", ".res/button/Quit-s.png", ".res/button/Quit-d"};
 	public final static String BUTTON_STAGE_PATH[] = {"./res/button/Stage1.png", "./res/button/Stage1-s.png",
 			"./res/button/Stage2.png", "./res/button/Stage2-s.png",
 			"./res/button/Stage3.png", "./res/button/Stage3-s.png"};
