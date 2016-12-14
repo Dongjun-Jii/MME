@@ -1,9 +1,12 @@
-package Game.Object.Button;
+package Game.Object;
 
-import Game.Object.GameObject;
+import Game.GameInfo;
+import Game.GameState;
 import Graphics.Texture;
 import Graphics.VertexArray;
 import Maths.Matrix4f;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class Button implements GameObject{
 	private Texture m_Texture[] = new Texture[2];
@@ -20,12 +23,13 @@ public class Button implements GameObject{
 	public void setPath(String Inactivepath, String Activepath) {
 		m_Texture[0] = new Texture(Inactivepath);
 		m_Texture[1] = new Texture(Activepath);
+		m_Vao = new VertexArray(m_Texture[0].getWidth(), m_Texture[0].getHeight(), 0, 1, 0, 1);
 	}
 	
 	public void setPos(float x, float y) {
 		m_PosX = x;
 		m_PosY = y;
-		m_MVMatrix = Matrix4f.translate(m_PosX, m_PosY, 0);
+		m_MVMatrix = Matrix4f.translate(m_PosX, m_PosY, 0.5f);
 	}
 	
 	public void setActive(boolean a) {
@@ -39,7 +43,7 @@ public class Button implements GameObject{
 
 	@Override
 	public void draw() {
-		if(m_isActive) m_Texture[0].bind();
+		if(!m_isActive) m_Texture[0].bind();
 		else m_Texture[1].bind();
 		m_Vao.draw(m_MVMatrix);
 	}
@@ -52,8 +56,12 @@ public class Button implements GameObject{
 
 	@Override
 	public void keyPressEvent(int key) {
-		// TODO Auto-generated method stub
-		
+		if(key == GLFW_KEY_S){
+			GameInfo.gotoStageSelect();
+		}
+		else if (key == GLFW_KEY_Q){
+			GameInfo.gameEnd();
+		}
 	}
 
 	@Override
@@ -64,8 +72,16 @@ public class Button implements GameObject{
 
 	@Override
 	public void mousePressEvent(int button) {
-		// TODO Auto-generated method stub
-		
+		if(button == GLFW_MOUSE_BUTTON_LEFT){
+			double x = GameState.mouseInput.getCursorX();
+			double y = GameState.mouseInput.getCursorY();
+				if((x>=140)&&(x<=670)&&(y>=700)&&(y<=820)){
+					GameInfo.gotoStageSelect();
+				}
+				else if((x>=140)&&(x<=670)&&(y>=850)&&(y<=970)){
+					GameInfo.gameEnd();
+				}
+		}
 	}
 
 	@Override
