@@ -129,13 +129,13 @@ public class StageSelect implements Level{
 				GameInfo.gotoTitle();
 			}
 			else if(m_flag == flag.stage1){
-				// 1Åº ¤¡¤¡
+				GameInfo.gotoGame(1);
 			}
 			else if(m_flag == flag.stage2){
-				// 2Åº ¤¡¤¡
+				GameInfo.gotoGame(2);
 			}
 			else if(m_flag == flag.stage3){
-				// 3Åº ¤¡¤¡
+				GameInfo.gotoGame(3);
 			}
 		}
 	}

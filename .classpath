@@ -4,6 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="E:/LWJGL/jar/lwjgl.jar" sourcepath="E:/LWJGL/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="file:/E:/LWJGL/doc/"/>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:/LWJGL/native"/>
 		</attributes>
 	</classpathentry>

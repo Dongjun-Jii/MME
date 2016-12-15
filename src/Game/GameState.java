@@ -13,6 +13,7 @@ public class GameState {
 	public static MouseButtonInput mouseInput;
 	
 	public static Level curLevel;
+	public static Level gameLevel;
 	
 	public static long window;
 }

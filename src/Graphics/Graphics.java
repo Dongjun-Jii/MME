@@ -26,7 +26,7 @@ public class Graphics {
 	public void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(4, false, m_OrthoMat.getBuffer());
 		GameState.curLevel.draw();
 	}
