@@ -12,8 +12,10 @@ public class Button implements GameObject{
 	private Texture m_Texture[] = new Texture[2];
 	private VertexArray m_Vao;
 	private Matrix4f m_MVMatrix;
+	
 	private float m_PosX;
 	private float m_PosY;
+	
 	private boolean m_isActive = false;
 	
 	public Button() {
