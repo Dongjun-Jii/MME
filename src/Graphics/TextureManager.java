@@ -10,6 +10,7 @@ public class TextureManager {
 			return m_Textures.get(path);
 		}else {
 			Texture t = new Texture(path);
+			
 			m_Textures.put(path, t);
 			return t;
 		}

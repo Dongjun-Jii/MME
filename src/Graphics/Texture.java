@@ -4,8 +4,13 @@ import static org.lwjgl.BufferUtils.*;
 import static org.lwjgl.opengl.GL11.*;
 import static Utils.FileUtil.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+
+import Game.GameInfo;
 
 
 public class Texture {
@@ -22,7 +27,9 @@ public class Texture {
 		IntBuffer y = createIntBuffer(1);
 		IntBuffer comp = createIntBuffer(1);
 		imageBuffer = loadImageFile(path, x, y, comp);
-		
+		if(imageBuffer == null) {
+			GameInfo.gameEnd();
+		}
 		m_Width = x.get(0);
 		m_Height = y.get(0);
 		
