@@ -1,10 +1,6 @@
 package Game.Object;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
-
+import org.lwjgl.glfw.GLFW.*;
 import Game.GameState;
 import Graphics.Texture;
 import Graphics.TextureManager;
@@ -19,7 +15,7 @@ public class Bullet implements GameObject {
 	private float m_PosX;
 	private float m_PosY;
 	
-	private float m_Speed = 150;
+	private float m_Speed = 600;
 	private float m_Direction;
 	
 	private float m_LeftLimit;
@@ -29,12 +25,17 @@ public class Bullet implements GameObject {
 	
 	private boolean m_shouleDelete = false;
 	
-	public Bullet (String path, float x, float y, float dir) {
+	public Bullet (String path, int flag, float x, float y, float dir) {
 		m_Texture = TextureManager.getTexture(path);
 		m_Vao = new VertexArray(m_Texture.getWidth(), m_Texture.getHeight(), 0, 1, 0, 1);
 		m_PosX = x;
 		m_PosY = y;
 		m_Direction = dir;
+		switch (flag){
+			case 0: m_Speed = 600; break;		//총알의 색에 따라 속도가 다름
+			case 1: m_Speed = 300; break;
+			case 2: m_Speed = 900; break;
+		}
 	}
 	
 	public void setMoveRange(float left, float right, float top, float bottom) {

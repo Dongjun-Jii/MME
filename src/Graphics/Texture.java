@@ -27,9 +27,7 @@ public class Texture {
 		IntBuffer y = createIntBuffer(1);
 		IntBuffer comp = createIntBuffer(1);
 		imageBuffer = loadImageFile(path, x, y, comp);
-		if(imageBuffer == null) {
-			GameInfo.gameEnd();
-		}
+
 		m_Width = x.get(0);
 		m_Height = y.get(0);
 		
