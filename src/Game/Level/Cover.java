@@ -5,7 +5,6 @@ import Graphics.*;
 import Maths.Matrix4f;
 
 
-import static org.lwjgl.glfw.GLFW.*;
 
 public class Cover implements Level{
 	
@@ -18,7 +17,6 @@ public class Cover implements Level{
 		m_BackgroundT = TextureManager.getTexture(GameInfo.BG_COVER_PATH);
 		m_Background = new VertexArray(m_BackgroundT.getWidth(), 1080.0f, 0.0f, 1.0f, 0.0f, 1.0f);
 		m_bgMatrix = Matrix4f.translate(960, 520, 0);
-		
 	}
 	
 	@Override
@@ -47,7 +45,6 @@ public class Cover implements Level{
 
 	@Override
 	public void mousePressEvent(int button) {
-		GameInfo.gotoTitle();
 	}
 
 	@Override

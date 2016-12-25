@@ -10,7 +10,9 @@ import Graphics.VertexArray;
 import Maths.Matrix4f;
 
 public class StageSelect implements Level{
-	enum flag{menu, stage1, stage2, stage3, stage4, stage5, stage6, down, up}
+	enum flag{menu, stage1, stage2, stage3, stage4, stage5, stage6, stage7, stage8, stage9, stage10, down, up}
+	private static int BUTTONNUM = 10;
+	
 	private flag m_flag = flag.menu;
 	private int m_StageOnOff=0;
 	
@@ -20,12 +22,7 @@ public class StageSelect implements Level{
 	
 	private Button m_menu;
 	private Button m_disabledquit;	
-	private Button m_Stage1;		
-	private Button m_Stage2;
-	private Button m_Stage3;
-	private Button m_Stage4;
-	private Button m_Stage5;
-	private Button m_Stage6;
+	private Button m_Stage[];
 	private Button m_Down;
 	private Button m_Up;
 	
@@ -44,35 +41,24 @@ public class StageSelect implements Level{
 		m_disabledquit.setPath(GameInfo.BUTTON_QUIT_PATH[2], GameInfo.BUTTON_QUIT_PATH[2]);
 		m_disabledquit.setPos(335, 900);
 		
-		m_Stage1 = new Button();
-		m_Stage1.setActive(false);
-		m_Stage1.setPath(GameInfo.BUTTON_STAGE_PATH[0], GameInfo.BUTTON_STAGE_PATH[1]);
-		m_Stage1.setPos(1495, 600);
+		m_Stage = new Button[BUTTONNUM];
 		
-		m_Stage2 = new Button();
-		m_Stage2.setActive(false);
-		m_Stage2.setPath(GameInfo.BUTTON_STAGE_PATH[2], GameInfo.BUTTON_STAGE_PATH[3]);
-		m_Stage2.setPos(1495, 750);
+		for(int i = 0; i < BUTTONNUM; i++){
+			m_Stage[i] = new Button();
+			m_Stage[i].setActive(false);
+			m_Stage[i].setPath(GameInfo.BUTTON_STAGE_PATH[i*2], GameInfo.BUTTON_STAGE_PATH[i*2+1]);
+		}
 		
-		m_Stage3 = new Button();
-		m_Stage3.setActive(false);
-		m_Stage3.setPath(GameInfo.BUTTON_STAGE_PATH[4], GameInfo.BUTTON_STAGE_PATH[5]);
-		m_Stage3.setPos(1495, 900);
-		
-		m_Stage4 = new Button();
-		m_Stage4.setActive(false);
-		m_Stage4.setPath(GameInfo.BUTTON_STAGE_PATH[6], GameInfo.BUTTON_STAGE_PATH[7]);
-		m_Stage4.setPos(1495, 600);
-		
-		m_Stage5 = new Button();
-		m_Stage5.setActive(false);
-		m_Stage5.setPath(GameInfo.BUTTON_STAGE_PATH[8], GameInfo.BUTTON_STAGE_PATH[9]);
-		m_Stage5.setPos(1495, 750);
-		
-		m_Stage6 = new Button();
-		m_Stage6.setActive(false);
-		m_Stage6.setPath(GameInfo.BUTTON_STAGE_PATH[10], GameInfo.BUTTON_STAGE_PATH[11]);
-		m_Stage6.setPos(1495, 900);
+		m_Stage[0].setPos(1495, 600);
+		m_Stage[1].setPos(1495, 750);
+		m_Stage[2].setPos(1495, 900);
+		m_Stage[3].setPos(1495, 600);
+		m_Stage[4].setPos(1495, 750);
+		m_Stage[5].setPos(1495, 900);
+		m_Stage[6].setPos(1495, 600);
+		m_Stage[7].setPos(1495, 750);
+		m_Stage[8].setPos(1495, 900);
+		m_Stage[9].setPos(1495, 750);
 		
 		m_Up = new Button();
 		m_Up.setActive(false);
@@ -94,17 +80,28 @@ public class StageSelect implements Level{
 		m_disabledquit.draw();
 		
 		if(m_StageOnOff==0){
-			m_Stage1.draw();
-			m_Stage2.draw();
-			m_Stage3.draw();
+			m_Stage[0].draw();
+			m_Stage[1].draw();
+			m_Stage[2].draw();
 			m_Down.draw();
 		}
 		else if(m_StageOnOff==1){
 			m_Up.draw();
-			m_Stage4.draw();
-			m_Stage5.draw();
-			m_Stage6.draw();
+			m_Stage[3].draw();
+			m_Stage[4].draw();
+			m_Stage[5].draw();
 			m_Down.draw();
+		}
+		else if(m_StageOnOff == 2){
+			m_Up.draw();
+			m_Stage[6].draw();
+			m_Stage[7].draw();
+			m_Stage[8].draw();
+			m_Down.draw();
+		}
+		else if(m_StageOnOff == 3){
+			m_Up.draw();
+			m_Stage[9].draw();
 		}
 		
 	}
@@ -120,106 +117,228 @@ public class StageSelect implements Level{
 		// TODO Auto-generated method s tub
 		if(key == GLFW_KEY_RIGHT){
 			if(m_flag == flag.menu){
-				m_menu.setActive(false);
-				m_Stage1.setActive(true);
-				m_flag = flag.stage1;
-			}
-		}
-		else if(key == GLFW_KEY_DOWN){
-			if(m_flag == flag.stage1){
-				m_Stage1.setActive(false);
-				m_Stage2.setActive(true);
-				m_flag = flag.stage2;
-			}
-			else if(m_flag == flag.stage2){
-				m_Stage2.setActive(false);
-				m_Stage3.setActive(true);
-				m_flag = flag.stage3;
-			}
-			else if(m_flag == flag.stage3){
-				m_Stage3.setActive(false);
-				m_Down.setActive(true);
-				m_flag = flag.down;
-			}
-			else if(m_flag == flag.stage4){
-				m_Stage4.setActive(false);
-				m_Stage5.setActive(true);
-				m_flag = flag.stage5;
-			}
-			else if(m_flag == flag.stage5){
-				m_Stage5.setActive(false);
-				m_Stage6.setActive(true);
-				m_flag = flag.stage6;
-			}
-			else if(m_flag == flag.stage6){
-				m_Stage6.setActive(false);
-				m_Down.setActive(true);
-				m_flag = flag.down;
-			}
-			else if(m_flag == flag.up){
-				if(m_StageOnOff == 1){
-					m_Up.setActive(false);
-					m_Stage4.setActive(true);
+				if(m_StageOnOff == 0){
+					m_menu.setActive(false);
+					m_Stage[0].setActive(true);
+					m_flag = flag.stage1;
+				}
+				else if(m_StageOnOff == 1){
+					m_menu.setActive(false);
+					m_Stage[3].setActive(true);
 					m_flag = flag.stage4;
+				}
+				else if(m_StageOnOff == 2){
+					m_menu.setActive(false);
+					m_Stage[6].setActive(true);
+					m_flag = flag.stage7;
+				}
+				else if(m_StageOnOff == 3){
+					m_menu.setActive(false);
+					m_Stage[9].setActive(true);
+					m_flag = flag.stage10;
 				}
 			}
 		}
+		
+		else if(key == GLFW_KEY_DOWN){
+			if(m_flag == flag.stage1){
+				m_Stage[0].setActive(false);
+				m_Stage[1].setActive(true);
+				m_flag = flag.stage2;
+			}
+			else if(m_flag == flag.stage2){
+				m_Stage[1].setActive(false);
+				m_Stage[2].setActive(true);
+				m_flag = flag.stage3;
+			}
+			else if(m_flag == flag.stage3){
+				m_Stage[2].setActive(false);
+				m_Down.setActive(true);
+				m_flag = flag.down;
+			}
+			else if(m_flag == flag.stage4){
+				m_Stage[3].setActive(false);
+				m_Stage[4].setActive(true);
+				m_flag = flag.stage5;
+			}
+			else if(m_flag == flag.stage5){
+				m_Stage[4].setActive(false);
+				m_Stage[5].setActive(true);
+				m_flag = flag.stage6;
+			}
+			else if(m_flag == flag.stage6){
+				m_Stage[5].setActive(false);
+				m_Down.setActive(true);
+				m_flag = flag.down;
+			}
+			else if(m_flag == flag.stage7){
+				m_Stage[6].setActive(false);
+				m_Stage[7].setActive(true);
+				m_flag = flag.stage8;
+			}
+			else if(m_flag == flag.stage8){
+				m_Stage[7].setActive(false);
+				m_Stage[8].setActive(true);
+				m_flag = flag.stage9;
+			}
+			else if(m_flag == flag.stage9){
+				m_Stage[8].setActive(false);
+				m_Down.setActive(true);
+				m_flag = flag.down;
+			}			
+			else if(m_flag == flag.up){
+				if(m_StageOnOff == 1){
+					m_Up.setActive(false);
+					m_Stage[3].setActive(true);
+					m_flag = flag.stage4;
+				}
+				else if(m_StageOnOff == 2){
+					m_Up.setActive(false);
+					m_Stage[6].setActive(true);
+					m_flag = flag.stage7;
+				}
+				else if(m_StageOnOff == 3){
+					m_Up.setActive(false);
+					m_Stage[9].setActive(true);
+					m_flag = flag.stage10;
+				}
+			}
+		}
+		
 		else if(key == GLFW_KEY_UP){
-			if(m_flag == flag.stage2){
-				m_Stage2.setActive(false);
-				m_Stage1.setActive(true);
+			if(m_flag == flag.stage1){
+				m_Stage[0].setActive(false);
+				m_Down.setActive(true);
+				m_flag = flag.down;
+			}
+			else if(m_flag == flag.stage2){
+				m_Stage[1].setActive(false);
+				m_Stage[0].setActive(true);
 				m_flag = flag.stage1;
 			}
 			else if(m_flag == flag.stage3){
-				m_Stage3.setActive(false);
-				m_Stage2.setActive(true);
+				m_Stage[2].setActive(false);
+				m_Stage[1].setActive(true);
 				m_flag = flag.stage2;
 			}
 			else if(m_flag == flag.stage4){
-				m_Stage4.setActive(false);
+				m_Stage[3].setActive(false);
 				m_Up.setActive(true);
 				m_flag = flag.up;
 			}
 			else if(m_flag == flag.stage5){
-				m_Stage5.setActive(false);
-				m_Stage4.setActive(true);
+				m_Stage[4].setActive(false);
+				m_Stage[3].setActive(true);
 				m_flag = flag.stage4;
 			}
 			else if(m_flag == flag.stage6){
-				m_Stage6.setActive(false);
-				m_Stage5.setActive(true);
+				m_Stage[5].setActive(false);
+				m_Stage[4].setActive(true);
 				m_flag = flag.stage5;
 			}
+			else if(m_flag == flag.stage7){
+				m_Stage[6].setActive(false);
+				m_Up.setActive(true);
+				m_flag = flag.up;
+			}
+			else if(m_flag == flag.stage8){
+				m_Stage[7].setActive(false);
+				m_Stage[6].setActive(true);
+				m_flag = flag.stage7;
+			}
+			else if(m_flag == flag.stage9){
+				m_Stage[8].setActive(false);
+				m_Stage[7].setActive(true);
+				m_flag = flag.stage8;
+			}
+			else if(m_flag == flag.stage10){
+				m_Stage[9].setActive(false);
+				m_Up.setActive(true);
+				m_flag = flag.up;
+			}
+			
 			else if(m_flag == flag.down){
 				if(m_StageOnOff == 0){
 					m_Down.setActive(false);
-					m_Stage3.setActive(true);
+					m_Stage[2].setActive(true);
 					m_flag = flag.stage3;
 				}
 				else if(m_StageOnOff == 1){
 					m_Down.setActive(false);
-					m_Stage6.setActive(true);
+					m_Stage[5].setActive(true);
 					m_flag = flag.stage6;
+				}
+				else if(m_StageOnOff == 2){
+					m_Down.setActive(false);
+					m_Stage[8].setActive(true);
+					m_flag = flag.stage9;
 				}
 			}
 		}
+		
 		else if (key == GLFW_KEY_LEFT){
 			if(m_flag == flag.stage1){
-				m_Stage1.setActive(false);
+				m_Stage[0].setActive(false);
 				m_menu.setActive(true);
 				m_flag = flag.menu;
 			}
 			else if(m_flag == flag.stage2){
-				m_Stage2.setActive(false);
+				m_Stage[1].setActive(false);
 				m_menu.setActive(true);
 				m_flag = flag.menu;
 			}
 			else if(m_flag == flag.stage3){
-				m_Stage3.setActive(false);
+				m_Stage[2].setActive(false);
 				m_menu.setActive(true);
 				m_flag = flag.menu;
 			}
+			else if(m_flag == flag.stage4){
+				m_Stage[3].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.stage5){
+				m_Stage[4].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.stage6){
+				m_Stage[5].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.stage7){
+				m_Stage[6].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.stage8){
+				m_Stage[7].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.stage9){
+				m_Stage[8].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.stage10){
+				m_Stage[9].setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.down){
+				m_Down.setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.up){
+				m_Up.setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.up;
+			}
 		}
+		
 		else if (key == GLFW_KEY_ENTER){
 			if(m_flag == flag.menu){
 				GameInfo.gotoTitle();
@@ -242,26 +361,58 @@ public class StageSelect implements Level{
 			else if(m_flag == flag.stage6){
 				GameInfo.gotoGame(6);
 			}
+			else if(m_flag == flag.stage7){
+				GameInfo.gotoGame(7);
+			}
+			else if(m_flag == flag.stage8){
+				GameInfo.gotoGame(8);
+			}
+			else if(m_flag == flag.stage9){
+				GameInfo.gotoGame(9);
+			}
+			else if(m_flag == flag.stage10){
+				GameInfo.gotoGame(10);
+			}
+			
 			else if(m_flag == flag.up){
 				if(m_StageOnOff == 1){
 					m_StageOnOff = 0;
 					m_Up.setActive(false);
-					m_Stage3.setActive(true);
+					m_Stage[2].setActive(true);
 					m_flag = flag.stage3;
 				}
 				else if(m_StageOnOff == 2){
-					//
+					m_StageOnOff = 1;
+					m_Up.setActive(false);
+					m_Stage[5].setActive(true);
+					m_flag = flag.stage6;
+				}
+				else if(m_StageOnOff == 3){
+					m_StageOnOff = 2;
+					m_Up.setActive(false);
+					m_Stage[8].setActive(true);
+					m_flag = flag.stage9;
 				}
 			}
+			
 			else if(m_flag == flag.down){
 				if(m_StageOnOff == 0){
 					m_StageOnOff = 1;
 					m_Down.setActive(false);
-					m_Stage4.setActive(true);
+					m_Stage[3].setActive(true);
 					m_flag = flag.stage4;
 				}
 				else if(m_StageOnOff==1){
-					//
+					m_StageOnOff = 2;
+					m_Down.setActive(false);
+					m_Stage[6].setActive(true);
+					m_flag = flag.stage7;
+				}
+				else if(m_StageOnOff==2){
+					m_StageOnOff = 3;
+					m_Down.setActive(false);
+					m_Stage[9].setActive(true);
+					m_flag = flag.stage10;
 				}
 			}
 		}
@@ -282,48 +433,102 @@ public class StageSelect implements Level{
 				if((x>=m_menu.getLeft())&&(x<=m_menu.getRight())&&(y>=m_menu.getTop())&&(y<=m_menu.getBotton())){
 					GameInfo.gotoTitle();
 				}
-				else if((x>=m_Stage1.getLeft())&&(x<=m_Stage1.getRight())&&(y>=m_Stage1.getTop())&&(y<=m_Stage1.getBotton())){
-					GameInfo.gotoGame(1);//1ź
-				}
-				else if((x>=m_Stage2.getLeft())&&(x<=m_Stage2.getRight())&&(y>=m_Stage2.getTop())&&(y<=m_Stage2.getBotton())){
-					GameInfo.gotoGame(2);
-				}
-				else if((x>=m_Stage3.getLeft())&&(x<=m_Stage3.getRight())&&(y>=m_Stage3.getTop())&&(y<=m_Stage3.getBotton())){
-					GameInfo.gotoGame(3);
-				}
-				else if((x>=m_Stage4.getLeft())&&(x<=m_Stage4.getRight())&&(y>=m_Stage4.getTop())&&(y<=m_Stage4.getBotton())){
-					GameInfo.gotoGame(4);
-				}
-				else if((x>=m_Stage5.getLeft())&&(x<=m_Stage5.getRight())&&(y>=m_Stage5.getTop())&&(y<=m_Stage5.getBotton())){
-					GameInfo.gotoGame(5);
-				}
-				else if((x>=m_Stage6.getLeft())&&(x<=m_Stage6.getRight())&&(y>=m_Stage6.getTop())&&(y<=m_Stage6.getBotton())){
-					GameInfo.gotoGame(6);
-				}
+				
 				else if((x>=m_Up.getLeft())&&(x<=m_Up.getRight())&&(y>=m_Up.getTop())&&(y<=m_Up.getBotton())){
 					if(m_StageOnOff == 1){
 						m_StageOnOff = 0;
+						m_Stage[3].setActive(false);
+						m_Stage[4].setActive(false);
+						m_Stage[5].setActive(false);
+						m_menu.setActive(false);
 						m_Up.setActive(false);
-						m_Stage3.setActive(true);
+						m_Stage[2].setActive(true);
 						m_flag = flag.stage3;
 					}
 					else if(m_StageOnOff == 2){
-						//
+						m_StageOnOff = 1;
+						m_Stage[6].setActive(false);
+						m_Stage[7].setActive(false);
+						m_Stage[8].setActive(false);
+						m_menu.setActive(false);
+						m_Up.setActive(false);
+						m_Stage[5].setActive(true);
+						m_flag = flag.stage6;
+					}
+					else if(m_StageOnOff == 3){
+						m_StageOnOff = 2;
+						m_Stage[9].setActive(false);
+						m_menu.setActive(false);
+						m_Up.setActive(false);
+						m_Stage[8].setActive(true);
+						m_flag = flag.stage9;
 					}
 				}
+				
 				else if((x>=m_Down.getLeft())&&(x<=m_Down.getRight())&&(y>=m_Down.getTop())&&(y<=m_Down.getBotton())){
 					if(m_StageOnOff == 0){
 						m_StageOnOff = 1;
+						m_Stage[0].setActive(false);
+						m_Stage[1].setActive(false);
+						m_Stage[2].setActive(false);
+						m_menu.setActive(false);
 						m_Down.setActive(false);
-						m_Stage4.setActive(true);
+						m_Stage[3].setActive(true);
 						m_flag = flag.stage4;
 					}
 					else if(m_StageOnOff==1){
-						//
+						m_StageOnOff = 2;
+						m_Stage[3].setActive(false);
+						m_Stage[4].setActive(false);
+						m_Stage[5].setActive(false);
+						m_menu.setActive(false);
+						m_Down.setActive(false);
+						m_Stage[6].setActive(true);
+						m_flag = flag.stage7;
+					}
+					else if(m_StageOnOff==2){
+						m_StageOnOff = 3;
+						m_Stage[6].setActive(false);
+						m_Stage[7].setActive(false);
+						m_Stage[8].setActive(false);
+						m_menu.setActive(false);
+						m_Down.setActive(false);
+						m_Stage[9].setActive(true);
+						m_flag = flag.stage10;
 					}
 				}
+				
+				else{
+					if(m_StageOnOff == 0){
+						for(int i = 0; i < 3; i++){
+							if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
+								GameInfo.gotoGame(i+1); break;
+							}
+						}
+					}
+					else if(m_StageOnOff == 1){
+						for(int i = 3; i < 6; i++){
+							if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
+								GameInfo.gotoGame(i+1); break;
+							}
+						}
+					}
+					else if(m_StageOnOff == 2){
+						for(int i = 3; i < 6; i++){
+							if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
+								GameInfo.gotoGame(i+1); break;
+							}
+						}
+					}
+					else if(m_StageOnOff == 3){
+						if((x>=m_Stage[9].getLeft())&&(x<=m_Stage[9].getRight())&&(y>=m_Stage[9].getTop())&&(y<=m_Stage[9].getBotton())){
+							GameInfo.gotoGame(10);
+						}
+					}
+				}
+			}
 		}
-	}
+	
 
 	@Override
 	public void mouseReleaseEvent(int button) {

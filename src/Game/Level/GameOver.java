@@ -3,6 +3,7 @@ package Game.Level;
 import static org.lwjgl.glfw.GLFW.*;
 
 import Game.GameInfo;
+import Game.GameState;
 import Game.Object.Button;
 import Graphics.Texture;
 import Graphics.TextureManager;
@@ -62,6 +63,11 @@ public class GameOver implements Level{
 				m_menu.setActive(true);
 				m_flag = flag.menu;
 			}
+			else if(m_flag == flag.menu){
+				m_menu.setActive(false);
+				m_restart.setActive(true);
+				m_flag = flag.restart;
+			}
 		}
 		else if(key == GLFW_KEY_UP){
 			if(m_flag == flag.menu){
@@ -69,10 +75,15 @@ public class GameOver implements Level{
 				m_restart.setActive(true);
 				m_flag = flag.restart;
 			}
+			else if(m_flag == flag.restart){
+				m_restart.setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
 		}
 		else if(key == GLFW_KEY_ENTER){
 			if(m_flag == flag.restart){
-				//Àç½ÃÀÛ
+				GameInfo.gameRestart();
 			}
 			else if(m_flag == flag.menu){
 				GameInfo.gotoStageSelect();
@@ -88,7 +99,14 @@ public class GameOver implements Level{
 
 	@Override
 	public void mousePressEvent(int button) {
-		
+		double x = GameState.mouseInput.getCursorX();
+		double y = GameState.mouseInput.getCursorY();
+			if((x>=m_restart.getLeft())&&(x<=m_restart.getRight())&&(y>=m_restart.getTop())&&(y<=m_restart.getBotton())){
+				GameInfo.gameRestart();
+			}
+			else if((x>=m_menu.getLeft())&&(x<=m_menu.getRight())&&(y>=m_menu.getTop())&&(y<=m_menu.getBotton())){
+				GameInfo.gotoStageSelect();
+			}
 	}
 
 	@Override

@@ -34,11 +34,9 @@ public class FileUtil {
 		return imageBuffer;
 	}
 	
-	public static ByteBuffer loadSoundFile(String path, IntBuffer channels, IntBuffer sample_rate) {
-		ShortBuffer ssoundBuffer = null;
-		ssoundBuffer = stb_vorbis_decode_filename(path, channels, sample_rate);
-		ByteBuffer soundBuffer = createByteBuffer(ssoundBuffer.capacity() << 1);
-		soundBuffer.asShortBuffer().put(ssoundBuffer);
+	public static ShortBuffer loadSoundFile(String path, IntBuffer channels, IntBuffer sample_rate) {
+		ShortBuffer soundBuffer = null;
+		soundBuffer = stb_vorbis_decode_filename(path, channels, sample_rate);
 		return soundBuffer;
 	}
 }

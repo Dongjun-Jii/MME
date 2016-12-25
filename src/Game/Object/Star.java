@@ -16,13 +16,16 @@ public class Star implements GameObject{
 	private float m_PosX;
 	private float m_PosY;
 	
+	private float m_PreX;
+	private float m_PreY;
+	
 	private float m_LeftLimit;
 	private float m_RightLimit;
 	private float m_TopLimit;
 	private float m_BottomLimit;
 	
-	private float m_Hspeed = 100;
-	private float m_Vspeed = 100;
+	private float m_Hspeed = 400;
+	private float m_Vspeed = 400;
 	
 	public Star(String path) {
 		m_Texture = TextureManager.getTexture(path);
@@ -39,6 +42,22 @@ public class Star implements GameObject{
 	public void setPosition(float x, float y) {
 		m_PosX = x;
 		m_PosY = y;
+	}
+	
+	public float getX() {
+		return m_PosX;
+	}
+	
+	public float getY() {
+		return m_PosY;
+	}
+	
+	public float getpreX() {
+		return m_PreX;
+	}
+	
+	public float getpreY() {
+		return m_PreY;
 	}
 
 	@Override
@@ -66,6 +85,8 @@ public class Star implements GameObject{
 			deltaY += m_Hspeed * deltaTime;
 		}
 		
+		m_PreX = m_PosX;
+		m_PreY = m_PosY;
 		m_PosX = Math.max(m_LeftLimit, Math.min(m_RightLimit, m_PosX + deltaX));
 		m_PosY = Math.max(m_TopLimit, Math.min(m_BottomLimit, m_PosY + deltaY));
 	}

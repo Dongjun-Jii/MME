@@ -3,6 +3,7 @@ package Game.Level;
 import static org.lwjgl.glfw.GLFW.*;
 
 import Game.GameInfo;
+import Game.GameState;
 import Game.Object.Button;
 import Graphics.Texture;
 import Graphics.TextureManager;
@@ -76,9 +77,19 @@ public class Pause implements Level{
 				m_menu.setActive(true);
 				m_flag = flag.menu;
 			}
+			else if(m_flag == flag.menu){
+				m_menu.setActive(false);
+				m_restart.setActive(true);
+				m_flag = flag.restart;
+			}
 		}
 		else if(key == GLFW_KEY_UP){
-			if(m_flag == flag.Continue){
+			if(m_flag == flag.restart){
+				m_restart.setActive(false);
+				m_menu.setActive(true);
+				m_flag = flag.menu;
+			}
+			else if(m_flag == flag.Continue){
 				m_Continue.setActive(false);
 				m_restart.setActive(true);
 				m_flag = flag.restart;
@@ -91,10 +102,10 @@ public class Pause implements Level{
 		}
 		else if(key == GLFW_KEY_ENTER){
 			if(m_flag == flag.restart){
-				//재시작
+				GameInfo.gameRestart();
 			}
 			else if(m_flag == flag.Continue){
-				//게임 재개
+				GameInfo.gameResume();
 			}
 			else if(m_flag == flag.menu){
 				GameInfo.gotoStageSelect();
@@ -110,7 +121,17 @@ public class Pause implements Level{
 
 	@Override
 	public void mousePressEvent(int button) {
-		
+		double x = GameState.mouseInput.getCursorX();
+		double y = GameState.mouseInput.getCursorY();
+			if((x>=m_restart.getLeft())&&(x<=m_restart.getRight())&&(y>=m_restart.getTop())&&(y<=m_restart.getBotton())){
+				GameInfo.gameRestart();
+			}
+			else if((x>=m_Continue.getLeft())&&(x<=m_Continue.getRight())&&(y>=m_Continue.getTop())&&(y<=m_Continue.getBotton())){
+				GameInfo.gameResume();
+			}
+			else if((x>=m_menu.getLeft())&&(x<=m_menu.getRight())&&(y>=m_menu.getTop())&&(y<=m_menu.getBotton())){
+				GameInfo.gotoStageSelect();
+			}
 	}
 
 	@Override
