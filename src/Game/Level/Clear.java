@@ -10,7 +10,7 @@ import Graphics.TextureManager;
 import Graphics.VertexArray;
 import Maths.Matrix4f;
 
-public class Pause implements Level{
+public class Clear implements Level{
 	
 	enum flag {restart, Continue, menu}
 	private flag m_flag = flag.restart;
@@ -23,9 +23,9 @@ public class Pause implements Level{
 	private Button m_menu;
 	private Button m_Continue;
 	
-	public Pause() {
+	public Clear() {
 		
-		m_BackgroundT = TextureManager.getTexture(GameInfo.BG_GREEN_PATH);
+		m_BackgroundT = TextureManager.getTexture(GameInfo.BG_CLEAR_PATH);
 		m_Background = new VertexArray(m_BackgroundT.getWidth(), 1080.0f, 0.0f, 1.0f, 0.0f, 1.0f);
 		m_bgMatrix = Matrix4f.translate(960, 520, 0);
 		

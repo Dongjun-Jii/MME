@@ -15,5 +15,7 @@ public class GameState {
 	public static Level curLevel;
 	public static Level gameLevel;
 	
+	public static int stage;
+	
 	public static long window;
 }

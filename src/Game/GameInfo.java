@@ -13,6 +13,7 @@ public final class GameInfo {
 	public final static String BG_STAGE_PATH = "./res/bg/GameStage.png";
 	public final static String BG_COVER_PATH = "./res/bg/Title.png";
 	public final static String BG_CREDIT_PATH = "./res/bg/Credit.png";
+	public static final String BG_CLEAR_PATH = "./res/bg/Clear.png";
 	
 	/*¹öÆ°*/
 	public final static String BUTTON_MENU_PATH[] = {"./res/button/Menu.png", "./res/button/Menu-sS.png", "./res/button/Menu-sP.png", "./res/button/Menu-sO.png"};
@@ -22,7 +23,11 @@ public final class GameInfo {
 			"./res/button/Stage3.png", "./res/button/Stage3-s.png",
 			"./res/button/Stage4.png", "./res/button/Stage4-s.png",
 			"./res/button/Stage5.png", "./res/button/Stage5-s.png",
-			"./res/button/Stage6.png", "./res/button/Stage6-s.png"};
+			"./res/button/Stage6.png", "./res/button/Stage6-s.png",
+			"./res/button/Stage7.png", "./res/button/Stage7-s.png",
+			"./res/button/Stage8.png", "./res/button/Stage8-s.png",
+			"./res/button/Stage9.png", "./res/button/Stage9-s.png",
+			"./res/button/Stage10.png", "./res/button/Stage10-s.png"};
 	public final static String BUTTON_RESTART_PATH[] = {"./res/button/Restart.png", "./res/button/Restart-sP.png", "./res/button/Restart-sO.png"};
 	public final static String BUTTON_CONTINUE_PATH[] = {"./res/button/Continue.png", "./res/button/Continue-s.png"};
 	public final static String BUTTON_START_PATH[] = {"./res/button/Start.png", "./res/button/Start-s.png"};
@@ -37,12 +42,19 @@ public final class GameInfo {
 	/*ÃÑ¾Ë*/
 	public final static String BULLET_PATH[] = {"./res/bullet/MME-Bullet-Y.png", "./res/bullet/MME-Bullet-B.png","./res/bullet/MME-Bullet-R.png"};
 	
+	public final static String WALL_PATH = "./res/wall/Wall.png";
+	public final static String PORTAL_PATH = "./res/wall/Portal.png";
+	
 	public final static int GAME_AREA_L = 128;
 	public final static int GAME_AREA_ML = 896;
 	public final static int GAME_AREA_MR = 1026;
 	public final static int GAME_AREA_R = 1794;
 	public final static int GAME_AREA_T = 60;
 	public final static int GAME_AREA_B = 1020;
+	
+	public final static int MAZE_WIDTH = 12;
+	public final static int MAZE_HEIGHT = 15;
+	
 	
 	public static void gameInit() {
 		GameState.curLevel = new Cover();
@@ -62,17 +74,32 @@ public final class GameInfo {
 	
 	public static void gotoGame(int stage) {
 		GameState.curLevel = new GameStage(stage);
+		GameState.stage = stage;
 	}
 	
 	public static void gotoCredit(){
-		GameState.curLevel = new Pause();
+		GameState.curLevel = new Credit();
 	}
+	
 	public static void gamePause() {
+		GameState.gameLevel = GameState.curLevel;
 		GameState.curLevel = new Pause();
 	}
 	
+	public static void gameResume() {
+		GameState.curLevel = GameState.gameLevel;
+	}
+	
 	public static void gameOver() {
-		
+		GameState.curLevel = new GameOver();
+	}
+	
+	public static void gameRestart() {
+		GameState.curLevel = new GameStage(GameState.stage);
+	}
+
+	public static void gameClear() {
+		GameState.curLevel = new Clear();
 	}
 	
 }

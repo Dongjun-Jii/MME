@@ -7,12 +7,11 @@ import Graphics.*;
 import Maths.Matrix4f;
 
 
-
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Title implements Level{
 	
-	enum flag {start, quit}
+	enum flag {start, quit, credit};
 	private flag m_flag = flag.start;
 	
 	private VertexArray m_Background;
@@ -21,6 +20,7 @@ public class Title implements Level{
 	
 	private Button m_StartButton;
 	private Button m_QuitButton;
+	private Button m_CreditButton;
 	
 	public Title() {
 		
@@ -31,12 +31,17 @@ public class Title implements Level{
 		m_StartButton = new Button();
 		m_StartButton.setActive(true);
 		m_StartButton.setPath(GameInfo.BUTTON_START_PATH[0], GameInfo.BUTTON_START_PATH[1]);
-		m_StartButton.setPos(405, 760);
+		m_StartButton.setPos(405, 750);
 		
 		m_QuitButton = new Button();
 		m_QuitButton.setActive(false);
 		m_QuitButton.setPath(GameInfo.BUTTON_QUIT_PATH[0], GameInfo.BUTTON_QUIT_PATH[1]);
-		m_QuitButton.setPos(335, 910);
+		m_QuitButton.setPos(335, 900);
+		
+		m_CreditButton = new Button();
+		m_CreditButton.setActive(false);
+		m_CreditButton.setPath(GameInfo.BUTTON_CREDIT_PATH[0], GameInfo.BUTTON_CREDIT_PATH[1]);
+		m_CreditButton.setPos(1500, 900);
 	}
 	
 	@Override
@@ -46,6 +51,7 @@ public class Title implements Level{
 		
 		m_StartButton.draw();
 		m_QuitButton.draw();
+		m_CreditButton.draw();
 	}
 
 	@Override
@@ -63,14 +69,30 @@ public class Title implements Level{
 			GameInfo.gameEnd();
 		}
 		else if (key == GLFW_KEY_DOWN){
-			m_StartButton.setActive(false);
+			if(m_flag == flag.start) m_StartButton.setActive(false);
+			else if(m_flag == flag.credit) m_CreditButton.setActive(false);
 			m_QuitButton.setActive(true);
 			m_flag = flag.quit;
 		}
 		else if (key == GLFW_KEY_UP){
-			m_QuitButton.setActive(false);
+			if(m_flag == flag.quit)	m_QuitButton.setActive(false);
+			else if(m_flag == flag.credit) m_CreditButton.setActive(false);
 			m_StartButton.setActive(true);
 			m_flag = flag.start;
+		}
+		else if (key == GLFW_KEY_RIGHT){
+			if(m_flag == flag.start) m_StartButton.setActive(false);
+			else if(m_flag == flag.quit) m_QuitButton.setActive(false);
+			m_CreditButton.setActive(true);
+			m_flag = flag.credit;
+		}
+		else if (key == GLFW_KEY_LEFT){
+			if(m_flag == flag.credit){
+				m_CreditButton.setActive(false);
+				m_StartButton.setActive(true);
+				m_flag = flag.start;
+			}
+			
 		}
 		else if ((key == GLFW_KEY_ENTER) || (key == GLFW_KEY_SPACE)){
 			if(m_flag == flag.start){
@@ -78,6 +100,9 @@ public class Title implements Level{
 			}
 			else if(m_flag == flag.quit){
 				GameInfo.gameEnd();
+			}
+			else if(m_flag == flag.credit){
+				GameInfo.gotoCredit();
 			}
 		}
 	}
@@ -98,6 +123,9 @@ public class Title implements Level{
 				}
 				else if((x>=m_QuitButton.getLeft())&&(x<=m_QuitButton.getRight())&&(y>=m_QuitButton.getTop())&&(y<=m_QuitButton.getBotton())){
 					GameInfo.gameEnd();
+				}
+				else if((x>=m_CreditButton.getLeft())&&(x<=m_CreditButton.getRight())&&(y>=m_CreditButton.getTop())&&(y<=m_CreditButton.getBotton())){
+					GameInfo.gotoCredit();
 				}
 		}
 	}

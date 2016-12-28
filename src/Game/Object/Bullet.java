@@ -1,7 +1,5 @@
 package Game.Object;
 
-import org.lwjgl.glfw.GLFW.*;
-import Game.GameState;
 import Graphics.Texture;
 import Graphics.TextureManager;
 import Graphics.VertexArray;
@@ -32,9 +30,9 @@ public class Bullet implements GameObject {
 		m_PosY = y;
 		m_Direction = dir;
 		switch (flag){
-			case 0: m_Speed = 600; break;		//총알의 색에 따라 속도가 다름
+			case 0: m_Speed = 450; break;		//총알의 색에 따라 속도가 다름
 			case 1: m_Speed = 300; break;
-			case 2: m_Speed = 900; break;
+			case 2: m_Speed = 600; break;
 		}
 	}
 	
@@ -43,6 +41,18 @@ public class Bullet implements GameObject {
 		m_RightLimit = right;
 		m_TopLimit = top;
 		m_BottomLimit = bottom;
+	}
+	
+	public void setDirection(float dir) {
+		m_Direction = dir;
+	}
+	
+	public float getX() {
+		return m_PosX;
+	}
+	
+	public float getY() {
+		return m_PosY;
 	}
 	
 	public boolean shouldDelete() {
