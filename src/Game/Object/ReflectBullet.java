@@ -6,12 +6,7 @@ import Graphics.TextureManager;
 import Graphics.VertexArray;
 import Maths.Matrix4f;
 
-public class Bullet implements GameObject {
-	public static final int BULLET_YELLOW = 0;
-	public static final int BULLET_BLUE = 1;
-	public static final int BULLET_RED = 2;
-	public static final int BULLET_GREEN = 3;
-	
+public class ReflectBullet extends Bullet implements GameObject{
 	private Texture m_Texture;
 	private VertexArray m_Vao;
 	private Matrix4f m_MVMatrix;
@@ -27,16 +22,17 @@ public class Bullet implements GameObject {
 	private float m_TopLimit = GameInfo.GAME_AREA_T;
 	private float m_BottomLimit = GameInfo.GAME_AREA_B;
 	
+	private int m_RemainReflectN;
+	
 	private boolean m_shouleDelete = false;
 	
-	public Bullet(){}
-	
-	public Bullet (int color, float x, float y, float dir) {
+	public ReflectBullet (int reflectn, int color, float x, float y, float dir) {
 		m_Texture = TextureManager.getTexture(GameInfo.BULLET_PATH[color]);
 		m_Vao = new VertexArray(m_Texture.getWidth(), m_Texture.getHeight(), 0, 1, 0, 1);
 		m_PosX = x;
 		m_PosY = y;
 		m_Direction = dir;
+		m_RemainReflectN = reflectn;
 		
 		switch (color){
 			case 0: m_Speed = 500; break;
@@ -61,7 +57,7 @@ public class Bullet implements GameObject {
 	public boolean shouldDelete() {
 		return m_shouleDelete;
 	}
-	
+
 	@Override
 	public void draw() {
 		m_MVMatrix = Matrix4f.translate(m_PosX, m_PosY, 0);
@@ -77,8 +73,46 @@ public class Bullet implements GameObject {
 		m_PosX = Math.max(m_LeftLimit, Math.min(m_RightLimit, m_PosX + deltaX));
 		m_PosY = Math.max(m_TopLimit, Math.min(m_BottomLimit, m_PosY + deltaY));
 		
-		if(m_PosX == m_LeftLimit || m_PosX == m_RightLimit || m_PosY == m_TopLimit || m_PosY == m_BottomLimit)
-			m_shouleDelete = true;
+		if(m_PosX == m_LeftLimit || m_PosX == m_RightLimit || m_PosY == m_TopLimit || m_PosY == m_BottomLimit) {
+			if(m_RemainReflectN == 0) {
+				m_shouleDelete = true;
+			}
+			else {
+				double px = Math.cos(m_Direction);
+				double py = Math.sin(m_Direction);
+				double nx = 0;
+				double ny = 0;
+				
+				if(m_PosX == m_LeftLimit) {
+					nx = 1;
+				} else if (m_PosX == m_RightLimit) {
+					nx = -1;
+				}
+				if (m_PosY == m_TopLimit) {
+					ny = 1;
+				} else if (m_PosY == m_BottomLimit) {
+					ny = -1;
+				}
+				
+				if(nx != 0 && ny != 0) {
+					double len = Math.sqrt(nx * nx + ny * ny);
+					nx /= len; ny /= len;
+				}
+				
+				double rx = px + 2 * nx * (-px * nx + -py * ny);
+				double ry = py + 2 * ny * (-px * nx + -py * ny);
+				double len = Math.sqrt(rx * rx + ry * ry);
+				rx /= len; ry /= len;
+				
+				float result = (float) Math.acos(rx);
+				
+				if(ry < 0) result = (float) (2 * Math.PI - result);
+				
+				m_Direction = result;
+				m_RemainReflectN -= 1;
+			}
+		}
+			
 	}
 
 	@Override

@@ -3,14 +3,8 @@ package Graphics;
 import static org.lwjgl.BufferUtils.*;
 import static org.lwjgl.opengl.GL11.*;
 import static Utils.FileUtil.*;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-
-import Game.GameInfo;
 
 
 public class Texture {

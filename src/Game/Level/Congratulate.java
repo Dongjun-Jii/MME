@@ -3,19 +3,28 @@ package Game.Level;
 import Game.*;
 import Graphics.*;
 import Maths.Matrix4f;
+import Game.GameInfo;
+import Game.Object.Button;
 
-public class Credit implements Level{
+import static org.lwjgl.glfw.GLFW.*;
+
+
+public class Congratulate implements Level{
 	
 	private VertexArray m_Background;
 	private Texture m_BackgroundT;
 	private Matrix4f m_bgMatrix;
+	private Button m_credit;
 	
-	public Credit() {
-		
-		m_BackgroundT = TextureManager.getTexture(GameInfo.BG_CREDIT_PATH);
+	public Congratulate() {		
+		m_BackgroundT = TextureManager.getTexture(GameInfo.BG_CONGRATULATE_PATH);
 		m_Background = new VertexArray(m_BackgroundT.getWidth(), 1080.0f, 0.0f, 1.0f, 0.0f, 1.0f);
 		m_bgMatrix = Matrix4f.translate(960, 520, 0);
 		
+		m_credit = new Button();
+		m_credit.setActive(true);
+		m_credit.setPath(GameInfo.BUTTON_CREDIT_PATH[0], GameInfo.BUTTON_CREDIT_PATH[1]);
+		m_credit.setPos(960, 780);
 	}
 	
 	@Override
@@ -23,6 +32,7 @@ public class Credit implements Level{
 		m_BackgroundT.bind();
 		m_Background.draw(m_bgMatrix);
 		
+		m_credit.draw();
 	}
 
 	@Override
@@ -33,7 +43,9 @@ public class Credit implements Level{
 
 	@Override
 	public void keyPressEvent(int key) {
-		GameInfo.gotoTitle();
+		if(key == GLFW_KEY_ENTER){
+				GameInfo.gotoCredit();			
+		}
 	}
 
 	@Override
@@ -44,7 +56,6 @@ public class Credit implements Level{
 
 	@Override
 	public void mousePressEvent(int button) {
-		GameInfo.gotoTitle();
 	}
 
 	@Override

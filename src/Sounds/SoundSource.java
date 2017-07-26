@@ -30,6 +30,13 @@ public class SoundSource {
 		alSourcePlay(m_Source);
 	}
 	
+	void setLoop(boolean isLoop) {
+		if(isLoop)
+			alSourcei(m_Source, AL_LOOPING, AL_TRUE);
+		else
+			alSourcei(m_Source, AL_LOOPING, AL_FALSE);
+	}
+	
 	void pause() {
 		alSourcePause(m_Source);
 	}

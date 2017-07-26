@@ -1,4 +1,3 @@
-
 import org.lwjgl.glfw.*;
 import Game.*;
 import Graphics.Graphics;
@@ -9,7 +8,6 @@ import Sounds.Sound;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-import java.io.File;
 
 public class Main{
 
@@ -49,7 +47,7 @@ public class Main{
 			nowTime = glfwGetTime();
 			deltaTime = nowTime - preTime;
 			acTime += deltaTime;
-			
+
 			GameState.curLevel.update(deltaTime);
 			glfwPollEvents();
 			

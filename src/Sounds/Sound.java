@@ -39,7 +39,7 @@ public class Sound {
 		int buffer = alGenBuffers();
 		IntBuffer channels = BufferUtils.createIntBuffer(1);
 		IntBuffer sample_rate = BufferUtils.createIntBuffer(1);
-		ByteBuffer data = loadSoundFile(path, channels, sample_rate);
+		ShortBuffer data = loadSoundFile(path, channels, sample_rate);
 		
 		if(channels.get(0) == 1) {
 			alBufferData(buffer, AL_FORMAT_MONO16, data, sample_rate.get(0));
@@ -65,4 +65,7 @@ public class Sound {
 		m_Sources.get(name).stop();
 	}
 	
+	public void setLoop(String name, boolean isLoop) {
+		m_Sources.get(name).setLoop(isLoop);
+	}
 }

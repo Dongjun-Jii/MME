@@ -21,7 +21,7 @@ public class Clear implements Level{
 	
 	private Button m_restart;
 	private Button m_menu;
-	private Button m_Continue;
+	private Button m_next;
 	
 	public Clear() {
 		
@@ -34,10 +34,10 @@ public class Clear implements Level{
 		m_restart.setPath(GameInfo.BUTTON_RESTART_PATH[0], GameInfo.BUTTON_RESTART_PATH[1]);
 		m_restart.setPos(475, 650);
 		
-		m_Continue = new Button();
-		m_Continue.setActive(false);
-		m_Continue.setPath(GameInfo.BUTTON_CONTINUE_PATH[0], GameInfo.BUTTON_CONTINUE_PATH[1]);
-		m_Continue.setPos(495, 780);
+		m_next = new Button();
+		m_next.setActive(false);
+		m_next.setPath(GameInfo.BUTTON_NEXT_PATH[0], GameInfo.BUTTON_NEXT_PATH[1]);
+		m_next.setPos(340, 770);
 		
 		m_menu = new Button();
 		m_menu.setActive(false);
@@ -54,7 +54,7 @@ public class Clear implements Level{
 		m_Background.draw(m_bgMatrix);
 		
 		m_restart.draw();
-		m_Continue.draw();
+		m_next.draw();
 		m_menu.draw();
 	}
 
@@ -69,11 +69,11 @@ public class Clear implements Level{
 		if(key == GLFW_KEY_DOWN){
 			if(m_flag == flag.restart){
 				m_restart.setActive(false);
-				m_Continue.setActive(true);
+				m_next.setActive(true);
 				m_flag = flag.Continue;
 			}
 			else if(m_flag == flag.Continue){
-				m_Continue.setActive(false);
+				m_next.setActive(false);
 				m_menu.setActive(true);
 				m_flag = flag.menu;
 			}
@@ -90,13 +90,13 @@ public class Clear implements Level{
 				m_flag = flag.menu;
 			}
 			else if(m_flag == flag.Continue){
-				m_Continue.setActive(false);
+				m_next.setActive(false);
 				m_restart.setActive(true);
 				m_flag = flag.restart;
 			}
 			else if (m_flag == flag.menu){
 				m_menu.setActive(false);
-				m_Continue.setActive(true);
+				m_next.setActive(true);
 				m_flag = flag.Continue;
 			}
 		}
@@ -105,7 +105,7 @@ public class Clear implements Level{
 				GameInfo.gameRestart();
 			}
 			else if(m_flag == flag.Continue){
-				GameInfo.gameResume();
+				GameInfo.gotoGame(GameState.stage + 1);
 			}
 			else if(m_flag == flag.menu){
 				GameInfo.gotoStageSelect();
@@ -126,8 +126,8 @@ public class Clear implements Level{
 			if((x>=m_restart.getLeft())&&(x<=m_restart.getRight())&&(y>=m_restart.getTop())&&(y<=m_restart.getBotton())){
 				GameInfo.gameRestart();
 			}
-			else if((x>=m_Continue.getLeft())&&(x<=m_Continue.getRight())&&(y>=m_Continue.getTop())&&(y<=m_Continue.getBotton())){
-				GameInfo.gameResume();
+			else if((x>=m_next.getLeft())&&(x<=m_next.getRight())&&(y>=m_next.getTop())&&(y<=m_next.getBotton())){
+				GameInfo.gotoGame(GameState.stage + 1);
 			}
 			else if((x>=m_menu.getLeft())&&(x<=m_menu.getRight())&&(y>=m_menu.getTop())&&(y<=m_menu.getBotton())){
 				GameInfo.gotoStageSelect();

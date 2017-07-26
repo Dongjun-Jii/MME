@@ -446,7 +446,22 @@ public class StageSelect implements Level{
 						m_flag = flag.stage3;
 					}
 					else if(m_StageOnOff == 2){
-						//
+						m_StageOnOff = 1;
+						m_Stage[6].setActive(false);
+						m_Stage[7].setActive(false);
+						m_Stage[8].setActive(false);
+						m_menu.setActive(false);
+						m_Up.setActive(false);
+						m_Stage[5].setActive(true);
+						m_flag = flag.stage6;
+					}
+					else if(m_StageOnOff == 3){
+						m_StageOnOff = 2;
+						m_Stage[9].setActive(false);
+						m_menu.setActive(false);
+						m_Up.setActive(false);
+						m_Stage[8].setActive(true);
+						m_flag = flag.stage9;
 					}
 				}
 				
@@ -462,19 +477,58 @@ public class StageSelect implements Level{
 						m_flag = flag.stage4;
 					}
 					else if(m_StageOnOff==1){
-						//
+						m_StageOnOff = 2;
+						m_Stage[3].setActive(false);
+						m_Stage[4].setActive(false);
+						m_Stage[5].setActive(false);
+						m_menu.setActive(false);
+						m_Down.setActive(false);
+						m_Stage[6].setActive(true);
+						m_flag = flag.stage7;
+					}
+					else if(m_StageOnOff==2){
+						m_StageOnOff = 3;
+						m_Stage[6].setActive(false);
+						m_Stage[7].setActive(false);
+						m_Stage[8].setActive(false);
+						m_menu.setActive(false);
+						m_Down.setActive(false);
+						m_Stage[9].setActive(true);
+						m_flag = flag.stage10;
 					}
 				}
 				
 				else{
-					for(int i = 0; i < BUTTONNUM; i++){
-						if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
-							GameInfo.gotoGame(i+1);//1ź
+					if(m_StageOnOff == 0){
+						for(int i = 0; i < 3; i++){
+							if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
+								GameInfo.gotoGame(i+1); break;
+							}
 						}
+					}
+					else if(m_StageOnOff == 1){
+						for(int i = 3; i < 6; i++){
+							if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
+								GameInfo.gotoGame(i+1); break;
+							}
+						}
+					}
+					else if(m_StageOnOff == 2){
+						for(int i = 3; i < 6; i++){
+							if((x>=m_Stage[i].getLeft())&&(x<=m_Stage[i].getRight())&&(y>=m_Stage[i].getTop())&&(y<=m_Stage[i].getBotton())){
+								GameInfo.gotoGame(i+1); break;
+							}
+						}
+					}
+					else if(m_StageOnOff == 3){
+						if((x>=m_Stage[9].getLeft())&&(x<=m_Stage[9].getRight())&&(y>=m_Stage[9].getTop())&&(y<=m_Stage[9].getBotton())){
+							GameInfo.gotoGame(10);
+						}
+					}
 				}
 			}
 		}
-	}
+	
 
 	@Override
 	public void mouseReleaseEvent(int button) {
